@@ -1,7 +1,7 @@
 package main
 
 import (
-    //"time"
+"time"
 )
 
 // Params contains the query parameters passed to archive.org
@@ -20,6 +20,7 @@ type ResponseHeader struct {
 
 type Doc struct {
 	Identifier string
+    Oai_updatedate  []time.Time
 }
 
 type Response struct {
@@ -34,13 +35,13 @@ type SearchResponse struct {
 }
 
 type DeadShow struct {
-    Server      string
-    Metadata    DeadShowMetadata `json:"metadata"`
+	Server   string
+	Metadata DeadShowMetadata `json:"metadata"`
 }
 
 type DeadShowMetadata struct {
-    Identifier  []string
-    Date       []string
-    UpdateDate  []string
-    Venue      []string    
+	Identifier []string
+	Date       []string
+	UpdateDate []string
+	Venue      []string
 }
