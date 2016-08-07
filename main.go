@@ -95,12 +95,11 @@ func main() {
 		defer r.Body.Close()
 
 		showJSON, _ := ioutil.ReadAll(r.Body)
-		//fmt.Println(string(showJSON))
 
 		put1, err := client.Index().
 			Index("deadshows").
 			Type("deadshow").
-			Id("id").
+			Id(string(id)).
 			BodyString(string(showJSON)).
 			Do()
 		if err != nil {
@@ -127,11 +126,11 @@ func main() {
 		var showResponse DeadShow
 		// Should this be a look until EOF? Or am I sure I have all the response?
 		// Is that what the Body.Close call gets me?
-		json.NewDecoder(r.Body).Decode(&showResponse)
+		//json.NewDecoder(r.Body).Decode(&showResponse)
 
 		// Alternative solution using Unmarshal
 		// show, _ := ioutil.ReadAll(s.Body)
-		// json.Unmarshal(show, &showResponse)
+		json.Unmarshal(showJSON, &showResponse)
 
 		// :( All these will panic if value is nil
 		fmt.Println("Server: ", showResponse.Server)
