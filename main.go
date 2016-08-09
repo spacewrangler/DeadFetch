@@ -5,12 +5,12 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"time"
 	//"io/ioutil" // Needed for the json.unmarshal usage below
 	"net/http"
-	"time"
 )
 
-func searchDeadShows(numberOfResults int, startPage int) []Doc {
+func searchDeadShows(numberOfResults int, startPage int) []ArchiveDoc {
 
 	var searchURL = fmt.Sprint("https://archive.org/advancedsearch.php?"+
 		"q=collection%3AGratefulDead&fl%5B%5D=identifier&sort%5B%5D=identifier+"+
@@ -22,7 +22,7 @@ func searchDeadShows(numberOfResults int, startPage int) []Doc {
 	r, _ := http.Get(searchURL)
 	defer r.Body.Close()
 
-	var searchResponse SearchResponse
+	var searchResponse ArchiveSearchResponse
 	// Should this be a look until EOF? Or am I sure I have all the response?
 	// Is that what the Body.Close call gets me?
 	json.NewDecoder(r.Body).Decode(&searchResponse)
@@ -32,7 +32,7 @@ func searchDeadShows(numberOfResults int, startPage int) []Doc {
 	fmt.Println("Rows returned: ", searchResponse.ResponseHeader.Params.Rows)
 	fmt.Println("Starting record: ", searchResponse.Response.Start)
 
-	docs := []Doc{}
+	docs := []ArchiveDoc{}
 
 	for _, doc := range searchResponse.Response.Docs {
 		fmt.Println(doc.Identifier)
@@ -51,9 +51,6 @@ func main() {
 
 	fmt.Println("numResults: ", *numResults)
 	fmt.Println("startPage: ", *startPage)
-
-	// Wait for user input to continue
-	fmt.Scanln()
 
 	// Print show details to the console
 	results := searchDeadShows(*numResults, *startPage)
@@ -81,5 +78,11 @@ func main() {
 		t, _ := time.Parse("2006-01-02", showResponse.Metadata.Date[0])
 		fmt.Println("Parsed Date: ", t.Format("2006-01-02"))
 		fmt.Println("Venue: ", showResponse.Metadata.Venue[0])
+		fmt.Println("Backup Location: ", showResponse.Metadata.BackupLocation[0])
+
+		// Dump the whole showResponse to console
+		//fmt.Printf("%+v\n", showResponse)
+
+		fmt.Scanln()
 	}
 }
