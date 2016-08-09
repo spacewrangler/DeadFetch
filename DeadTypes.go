@@ -1,7 +1,7 @@
 package main
 
 import (
-"time"
+	"time"
 )
 
 // Params contains the query parameters passed to archive.org
@@ -19,8 +19,8 @@ type ResponseHeader struct {
 }
 
 type Doc struct {
-	Identifier string
-    Oai_updatedate  []time.Time
+	Identifier     string
+	Oai_updatedate []time.Time
 }
 
 type Response struct {
