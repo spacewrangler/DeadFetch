@@ -32,7 +32,7 @@ func searchDeadShows(numberOfResults int, startPage int) []ArchiveDoc {
 	fmt.Println("Rows returned: ", searchResponse.ResponseHeader.Params.Rows)
 	fmt.Println("Starting record: ", searchResponse.Response.Start)
 
-	docs := []ArchiveDoc{}
+	var docs = []ArchiveDoc{}
 
 	for _, doc := range searchResponse.Response.Docs {
 		fmt.Println(doc.Identifier)
@@ -56,7 +56,7 @@ func main() {
 	results := searchDeadShows(*numResults, *startPage)
 	for _, doc := range results {
 		fmt.Println(doc.Identifier)
-		var showURL = "http://archive.org/details/" + doc.Identifier + "?output=json"
+		showURL := "http://archive.org/details/" + doc.Identifier + "?output=json"
 		fmt.Println(showURL)
 		r, _ := http.Get(showURL)
 		defer r.Body.Close()
@@ -71,6 +71,13 @@ func main() {
 		// Alternative solution using Unmarshal
 		// show, _ := ioutil.ReadAll(s.Body)
 		json.Unmarshal(showJSON, &showResponse)
+
+		var deadFiles DeadShowFiles
+		json.Unmarshal(showJSON, &deadFiles)
+		for k, v := range deadFiles.Files {
+			fmt.Println(k)
+			fmt.Println(v)
+		}
 
 		// :( All these will panic if value is nil
 		fmt.Println("Server: ", showResponse.Server)

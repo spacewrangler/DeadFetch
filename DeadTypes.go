@@ -5,17 +5,17 @@ import (
 )
 
 // Params contains the query parameters passed to archive.org
-type ArchiveQueryParams struct {
+type ArchiveSearchQueryParams struct {
 	Query   string `json:"q"`
 	QueryIn string `json:"qin"`
 	Rows    int    `json:",string"`
 	Start   int
 }
 
-type ArchiveResponseHeader struct {
+type ArchiveSearchResponseHeader struct {
 	Status int
 	QTime  int
-	Params ArchiveQueryParams
+	Params ArchiveSearchQueryParams
 }
 
 type ArchiveDoc struct {
@@ -23,15 +23,15 @@ type ArchiveDoc struct {
 	OaiUpdateDate []time.Time `json:"oai_updatedate"`
 }
 
-type ArchiveResponse struct {
+type ArchiveSearchResults struct {
 	NumFound int
 	Start    int
 	Docs     []ArchiveDoc
 }
 
 type ArchiveSearchResponse struct {
-	ResponseHeader ArchiveResponseHeader
-	Response       ArchiveResponse
+	ResponseHeader ArchiveSearchResponseHeader
+	Response       ArchiveSearchResults
 }
 
 type DeadShow struct {
@@ -65,4 +65,13 @@ type DeadShowMetadata struct {
 	Updater        []string
 	Curation       []string
 	BackupLocation []string `json:"backup_location"`
+}
+
+type DeadShowFiles struct {
+	Files map[string]DeadShowFile
+}
+
+type DeadShowFile struct {
+	Source string
+	Format string
 }
