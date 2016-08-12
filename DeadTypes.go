@@ -4,9 +4,132 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"strings"
+	"strconv"
 	"time"
 )
+
+func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
+	// TODO Fix format: should include time
+	show.Details.AddedDate, _ = time.Parse("2006-01-02", raw.Metadata.Addeddate[0])
+	show.Details.AverageReview, _ = strconv.ParseFloat(raw.Reviews.Info.AvgRating, 64)
+	show.Details.BackupLocation = raw.Metadata.BackupLocation[0]
+	show.Details.Collection = raw.Metadata.Collection
+	show.Details.CollectionTitle = raw.Misc.CollectionTitle
+	show.Details.Coverage = raw.Metadata.Coverage[0]
+	show.Details.Creator = raw.Metadata.Creator[0]
+	show.Details.Curation = raw.Metadata.Curation
+	show.Details.Date, _ = time.Parse("2006-01-02", raw.Metadata.Date[0])
+	show.Details.Description = raw.Metadata.Description[0]
+	show.Details.DownloadsMonth = raw.Item.Month
+	show.Details.DownloadsWeek = raw.Item.Week
+	show.Details.ImageLink = raw.Misc.Image
+	show.Details.Lineage = raw.Metadata.Lineage[0]
+	show.Details.MD5s = raw.Metadata.Md5S
+	show.Details.Mediatype = raw.Metadata.Mediatype
+	show.Details.Notes = raw.Metadata.Notes
+	// TODO Fix format: should include time
+	show.Details.PublicDate, _ = time.Parse("2006-01-02", raw.Metadata.Publicdate[0])
+	show.Details.ReviewCount = raw.Reviews.Info.NumReviews
+	// TODO runtime string format is not standard - write parsing function
+	//show.Details.RunTime =
+	show.Details.Source = raw.Metadata.Source[0]
+	show.Details.Subject = raw.Metadata.Subject[0]
+	show.Details.Taper = raw.Metadata.Taper[0]
+	show.Details.Title = raw.Metadata.Title[0]
+	show.Details.TotalDownloads = raw.Item.Downloads
+	show.Details.Transferer = raw.Metadata.Transferer[0]
+	show.Details.Type = raw.Metadata.Type
+	//TODO Fix format: should include time
+	show.Details.UpdateDate, _ = time.Parse("2006-01-02", raw.Metadata.Updatedate[0])
+	show.Details.Updater = raw.Metadata.Updater[0]
+	show.Details.Venue = raw.Metadata.Venue[0]
+	show.Details.Year, _ = strconv.ParseUint(raw.Metadata.Year[0], 0, 64)
+
+	return nil
+}
+
+func (ds *DeadShow) UnmarshalJSON(data []byte) error {
+	var temp DeadShowRaw
+	json.Unmarshal(data, &temp)
+
+	ds.Identifier = temp.Metadata.Identifier[0]
+	ds.Server = temp.Server
+	ds.Directory = temp.Dir
+
+	unmarshalDeadShowDetails(&temp, ds)
+
+	return nil
+}
+
+type DeadShow struct {
+	Identifier string
+	Server     string
+	Directory  string
+	Details    DeadShowDetails
+	Reviews    []DeadShowReview
+	Files      []DeadShowFile
+}
+
+type DeadShowDetails struct {
+	Title           string
+	Creator         string
+	Mediatype       []string
+	Collection      []string
+	Type            []string
+	Description     string
+	Date            time.Time
+	Year            uint64
+	Subject         string
+	PublicDate      time.Time
+	AddedDate       time.Time
+	Venue           string
+	Coverage        string
+	Source          string
+	Lineage         string
+	Taper           string
+	Transferer      string
+	RunTime         time.Duration
+	MD5s            []string
+	Notes           []string
+	UpdateDate      time.Time
+	Updater         string
+	Curation        []string
+	BackupLocation  string
+	ReviewCount     uint32
+	AverageReview   float64
+	TotalDownloads  uint32
+	DownloadsWeek   uint32
+	DownloadsMonth  uint32
+	ImageLink       string
+	CollectionTitle string
+}
+
+type DeadShowReview struct {
+	Title    string
+	Reviewer string
+	Date     time.Time
+	Stars    int
+	Body     string
+}
+
+type DeadShowFile struct {
+	Source   string
+	Creator  string
+	Title    string
+	Track    uint16
+	Album    string
+	Bitrate  uint16
+	Format   string
+	Original string
+	MTime    uint64
+	Size     uint64
+	MD5      string
+	CRC32    string
+	SHA1     string
+	Length   time.Duration
+	Height   uint16
+	Width    uint16
+}
 
 // Params contains the query parameters passed to archive.org
 type archiveSearchQueryParams struct {
@@ -36,139 +159,6 @@ type archiveSearchResults struct {
 type archiveSearchResponse struct {
 	ResponseHeader archiveSearchResponseHeader
 	Response       archiveSearchResults
-}
-
-type deadShowRaw struct {
-	Server   string
-	Metadata deadShowMetadataRaw `json:"metadata"`
-}
-
-type DeadShow struct {
-	Server         string
-	Identifier     []string
-	Title          []string
-	Creator        []string
-	Mediatype      []string
-	Collection     []string
-	Type           []string
-	Description    []string
-	Date           []string
-	Year           []string
-	Subject        []string
-	PublicDate     []string
-	AddedDate      []string
-	Venue          []string
-	Coverage       []string
-	Source         []string
-	Lineage        []string
-	Taper          []string
-	Transferer     []string
-	RunTime        []string
-	md5s           []string
-	Notes          []string
-	UpdateDate     []string
-	Updater        []string
-	Curation       []string
-	BackupLocation []string
-}
-
-func (ds *DeadShow) UnmarshalJSON(data []byte) error {
-	var dsr deadShowRaw
-	json.Unmarshal(data, &dsr)
-
-	ds.Server = dsr.Server
-	ds.Identifier = dsr.Metadata.Identifier
-	ds.Title = dsr.Metadata.Title
-	ds.Creator = dsr.Metadata.Creator
-	ds.Mediatype = dsr.Metadata.Mediatype
-	ds.Collection = dsr.Metadata.Collection
-	ds.Type = dsr.Metadata.Type
-	ds.Description = dsr.Metadata.Description
-	ds.Date = dsr.Metadata.Date
-	ds.Year = dsr.Metadata.Year
-	ds.Subject = dsr.Metadata.Year
-	ds.PublicDate = dsr.Metadata.PublicDate
-	ds.AddedDate = dsr.Metadata.AddedDate
-	ds.Venue = dsr.Metadata.Venue
-	ds.Coverage = dsr.Metadata.Coverage
-	ds.Source = dsr.Metadata.Source
-	ds.Lineage = dsr.Metadata.Lineage
-	ds.Taper = dsr.Metadata.Taper
-	ds.Transferer = dsr.Metadata.Transferer
-	ds.RunTime = dsr.Metadata.RunTime
-	ds.md5s = dsr.Metadata.md5s
-	ds.Notes = dsr.Metadata.Notes
-	ds.UpdateDate = dsr.Metadata.UpdateDate
-	ds.Updater = dsr.Metadata.Updater
-	ds.Curation = dsr.Metadata.Curation
-	ds.BackupLocation = dsr.Metadata.BackupLocation
-
-	return nil
-}
-
-type deadShowMetadataRaw struct {
-	Identifier     []string
-	Title          []string
-	Creator        []string
-	Mediatype      []string
-	Collection     []string
-	Type           []string
-	Description    []string
-	Date           []string
-	Year           []string
-	Subject        []string
-	PublicDate     []string
-	AddedDate      []string
-	Venue          []string
-	Coverage       []string
-	Source         []string
-	Lineage        []string
-	Taper          []string
-	Transferer     []string
-	RunTime        []string
-	md5s           []string
-	Notes          []string
-	UpdateDate     []string
-	Updater        []string
-	Curation       []string
-	BackupLocation []string `json:"backup_location"`
-}
-
-type deadShowFilesRaw struct {
-	Files map[string]deadShowFileRaw
-}
-
-type deadShowFileRaw struct {
-	Name   string
-	Source string
-	Format string
-}
-
-type DeadShowFile struct {
-	// TODO add show ID
-	//ShowIdentifier string
-	Name   string
-	Source string
-	Format string
-}
-
-type DeadShowFiles struct {
-	Files []DeadShowFile
-}
-
-func (dsf *DeadShowFiles) UnmarshalJSON(data []byte) error {
-	// These var names are confusing: too many "file"
-	var deadFiles deadShowFilesRaw
-	var deadFile DeadShowFile
-	json.Unmarshal(data, &deadFiles)
-	for k, v := range deadFiles.Files {
-		deadFile.Name = strings.TrimPrefix(k, "/")
-		deadFile.Source = v.Source
-		deadFile.Format = v.Format
-		dsf.Files = append(dsf.Files, deadFile)
-	}
-
-	return nil
 }
 
 func searchDeadShows(numberOfResults int, startPage int) []ArchiveDoc {

@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
-	"time"
 	//"io/ioutil" // Needed for the json.unmarshal usage below
 	"net/http"
 )
@@ -34,26 +33,8 @@ func main() {
 		showJSON, _ := ioutil.ReadAll(r.Body)
 
 		var showResponse DeadShow
-		// Should this be a look until EOF? Or am I sure I have all the response?
-		// Is that what the Body.Close call gets me?
-		//json.NewDecoder(r.Body).Decode(&showResponse)
-
 		json.Unmarshal(showJSON, &showResponse)
-
-		// :( All these will panic if value is nil
-		fmt.Println("Server: ", showResponse.Server)
-		fmt.Println("Date: ", showResponse.Date[0])
-		t, _ := time.Parse("2006-01-02", showResponse.Date[0])
-		fmt.Println("Parsed Date: ", t.Format("2006-01-02"))
-		fmt.Println("Venue: ", showResponse.Venue[0])
-		fmt.Println("Backup Location: ", showResponse.BackupLocation[0])
-
-		// Dump the whole showResponse to console
-		//fmt.Printf("%+v\n", showResponse)
-
-		var showFiles DeadShowFiles
-		json.Unmarshal(showJSON, &showFiles)
-		fmt.Println(showFiles.Files)
+		fmt.Printf("%+v\n", showResponse)
 
 		fmt.Scanln()
 	}
