@@ -20,7 +20,7 @@ type DeadShowRaw struct {
 		Coverage       []string `json:"coverage"`
 		Source         []string `json:"source"`
 		Lineage        []string `json:"lineage"`
-		Taper          []string `json:"taper"`
+		Taper          []string `json:"taper,omitempty"`
 		Transferer     []string `json:"transferer"`
 		Runtime        []string `json:"runtime"`
 		Md5S           []string `json:"md5s"`

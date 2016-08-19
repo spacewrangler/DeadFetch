@@ -4,47 +4,136 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"runtime/debug"
 	"strconv"
 	"time"
 )
 
 func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Printf("%s: %s", r, debug.Stack())
+		}
+	}()
 	// TODO Fix format: should include time
-	show.Details.AddedDate, _ = time.Parse("2006-01-02", raw.Metadata.Addeddate[0])
-	show.Details.AverageReview, _ = strconv.ParseFloat(raw.Reviews.Info.AvgRating, 64)
-	show.Details.BackupLocation = raw.Metadata.BackupLocation[0]
+	if raw.Metadata.Addeddate != nil {
+		show.Details.AddedDate, _ = time.Parse("2006-01-02", raw.Metadata.Addeddate[0])
+	}
+	// TODO convert to float
+	//show.Details.AverageReview = raw.Reviews.Info.AvgRating
+	if raw.Metadata.BackupLocation != nil {
+		show.Details.BackupLocation = raw.Metadata.BackupLocation[0]
+	}
 	show.Details.Collection = raw.Metadata.Collection
 	show.Details.CollectionTitle = raw.Misc.CollectionTitle
-	show.Details.Coverage = raw.Metadata.Coverage[0]
-	show.Details.Creator = raw.Metadata.Creator[0]
+	if raw.Metadata.Coverage != nil {
+		show.Details.Coverage = raw.Metadata.Coverage[0]
+	}
+	if raw.Metadata.Creator != nil {
+		show.Details.Creator = raw.Metadata.Creator[0]
+	}
+
 	show.Details.Curation = raw.Metadata.Curation
-	show.Details.Date, _ = time.Parse("2006-01-02", raw.Metadata.Date[0])
-	show.Details.Description = raw.Metadata.Description[0]
+	if raw.Metadata.Date != nil {
+		show.Details.Date, _ = time.Parse("2006-01-02", raw.Metadata.Date[0])
+	}
+	if raw.Metadata.Description != nil {
+		show.Details.Description = raw.Metadata.Description[0]
+	}
 	show.Details.DownloadsMonth = raw.Item.Month
 	show.Details.DownloadsWeek = raw.Item.Week
 	show.Details.ImageLink = raw.Misc.Image
-	show.Details.Lineage = raw.Metadata.Lineage[0]
+	if raw.Metadata.Lineage != nil {
+		show.Details.Lineage = raw.Metadata.Lineage[0]
+	}
 	show.Details.MD5s = raw.Metadata.Md5S
 	show.Details.Mediatype = raw.Metadata.Mediatype
 	show.Details.Notes = raw.Metadata.Notes
 	// TODO Fix format: should include time
-	show.Details.PublicDate, _ = time.Parse("2006-01-02", raw.Metadata.Publicdate[0])
+	if raw.Metadata.Publicdate != nil {
+		show.Details.PublicDate, _ = time.Parse("2006-01-02", raw.Metadata.Publicdate[0])
+	}
 	show.Details.ReviewCount = raw.Reviews.Info.NumReviews
 	// TODO runtime string format is not standard - write parsing function
 	//show.Details.RunTime =
-	show.Details.Source = raw.Metadata.Source[0]
-	show.Details.Subject = raw.Metadata.Subject[0]
-	show.Details.Taper = raw.Metadata.Taper[0]
-	show.Details.Title = raw.Metadata.Title[0]
+	if raw.Metadata.Source != nil {
+		show.Details.Source = raw.Metadata.Source[0]
+	}
+	if raw.Metadata.Subject != nil {
+		show.Details.Subject = raw.Metadata.Subject[0]
+	}
+	if raw.Metadata.Taper != nil {
+		show.Details.Taper = raw.Metadata.Taper[0]
+	}
+	if raw.Metadata.Title != nil {
+		show.Details.Title = raw.Metadata.Title[0]
+	}
 	show.Details.TotalDownloads = raw.Item.Downloads
-	show.Details.Transferer = raw.Metadata.Transferer[0]
+	if raw.Metadata.Transferer != nil {
+		show.Details.Transferer = raw.Metadata.Transferer[0]
+	}
 	show.Details.Type = raw.Metadata.Type
 	//TODO Fix format: should include time
-	show.Details.UpdateDate, _ = time.Parse("2006-01-02", raw.Metadata.Updatedate[0])
-	show.Details.Updater = raw.Metadata.Updater[0]
-	show.Details.Venue = raw.Metadata.Venue[0]
-	show.Details.Year, _ = strconv.ParseUint(raw.Metadata.Year[0], 0, 64)
+	if raw.Metadata.Updatedate != nil {
+		show.Details.UpdateDate, _ = time.Parse("2006-01-02", raw.Metadata.Updatedate[0])
+	}
+	if raw.Metadata.Updater != nil {
+		show.Details.Updater = raw.Metadata.Updater[0]
+	}
+	if raw.Metadata.Venue != nil {
+		show.Details.Venue = raw.Metadata.Venue[0]
+	}
+	if raw.Metadata.Year != nil {
+		show.Details.Year, _ = strconv.ParseUint(raw.Metadata.Year[0], 0, 64)
+	}
 
+	return nil
+}
+
+func unmarshalDeadShowReviews(raw *DeadShowRaw, show *DeadShow) error {
+
+	// TODO: convert to float
+	//show.Details.AverageReview = raw.Reviews.Info.AvgRating
+	for _, r := range raw.Reviews.Reviews {
+		var rev = DeadShowReview{}
+		rev.Body = r.Reviewbody
+		// TODO convert string to date
+		//rev.Date =
+		rev.Reviewer = r.Reviewer
+		rev.Title = r.Reviewtitle
+		// TODO convert to int
+		//rev.Stars = r.Stars
+		show.Reviews = append(show.Reviews, rev)
+	}
+	return nil
+}
+
+func unmarshalDeadShowFiles(raw *DeadShowRaw, show *DeadShow) error {
+	if raw.Files != nil {
+		for k, v := range raw.Files {
+			var file = DeadShowFile{}
+
+			file.Album = v.Album
+			// TODO convert
+			//file.Bitrate = v.Bitrate
+			file.CRC32 = v.Crc32
+			file.Creator = v.Creator
+			file.Format = v.Format
+			// TODO convert
+			//file.Height = v.Height
+			// TODO convert
+			//file.Length = v.Length
+			file.MD5 = v.Md5
+			// TODO convert
+			//file.MTime = v.Mtime
+			file.Name = k
+			file.Original = v.Original
+			file.SHA1 = v.Sha1
+			// TODO convert
+			//file.Size = v.Size
+			show.Files = append(show.Files, file)
+		}
+	}
 	return nil
 }
 
@@ -57,6 +146,8 @@ func (ds *DeadShow) UnmarshalJSON(data []byte) error {
 	ds.Directory = temp.Dir
 
 	unmarshalDeadShowDetails(&temp, ds)
+	unmarshalDeadShowReviews(&temp, ds)
+	unmarshalDeadShowFiles(&temp, ds)
 
 	return nil
 }
@@ -108,11 +199,12 @@ type DeadShowReview struct {
 	Title    string
 	Reviewer string
 	Date     time.Time
-	Stars    int
+	Stars    uint8
 	Body     string
 }
 
 type DeadShowFile struct {
+	Name     string
 	Source   string
 	Creator  string
 	Title    string
@@ -186,7 +278,6 @@ func searchDeadShows(numberOfResults int, startPage int) []ArchiveDoc {
 	var docs = []ArchiveDoc{}
 
 	for _, doc := range searchResponse.Response.Docs {
-		fmt.Println(doc.Identifier)
 		docs = append(docs, doc)
 	}
 

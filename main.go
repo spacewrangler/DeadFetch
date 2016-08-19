@@ -12,6 +12,7 @@ import (
 
 // TODO: NO error handling. Should probably do something about that.
 func main() {
+	fmt.Println("***********************")
 	LogInit(os.Stdout, os.Stdout, os.Stdout, os.Stderr)
 
 	numResults := flag.Int("numResults", 50, "Number of results to return")
@@ -35,6 +36,7 @@ func main() {
 		var showResponse DeadShow
 		json.Unmarshal(showJSON, &showResponse)
 		fmt.Printf("%+v\n", showResponse)
+		fmt.Println("***********************")
 
 		fmt.Scanln()
 	}
