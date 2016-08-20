@@ -23,7 +23,7 @@ type DeadShowRaw struct {
 		Taper          []string `json:"taper,omitempty"`
 		Transferer     []string `json:"transferer"`
 		Runtime        []string `json:"runtime"`
-		Md5S           []string `json:"md5s"`
+		Md5S           []string `json:"md5s,-"`
 		Notes          []string `json:"notes"`
 		Updatedate     []string `json:"updatedate"`
 		Updater        []string `json:"updater"`
@@ -40,7 +40,7 @@ type DeadShowRaw struct {
 			Reviewtitle string `json:"reviewtitle"`
 			Reviewer    string `json:"reviewer"`
 			Reviewdate  string `json:"reviewdate"`
-			Stars       string `json:"stars,omitempty"`
+			Stars       string `json:"stars"`
 		} `json:"reviews"`
 	} `json:"reviews"`
 	Files map[string]struct {

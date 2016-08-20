@@ -15,12 +15,10 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 			fmt.Printf("%s: %s", r, debug.Stack())
 		}
 	}()
-	// TODO Fix format: should include time
 	if raw.Metadata.Addeddate != nil {
-		show.Details.AddedDate, _ = time.Parse("2006-01-02", raw.Metadata.Addeddate[0])
+		show.Details.AddedDate, _ = time.Parse("2006-01-02 15:04:05", raw.Metadata.Addeddate[0])
 	}
-	// TODO convert to float
-	//show.Details.AverageReview = raw.Reviews.Info.AvgRating
+	show.Details.AverageReview, _ = strconv.ParseFloat(raw.Reviews.Info.AvgRating, 64)
 	if raw.Metadata.BackupLocation != nil {
 		show.Details.BackupLocation = raw.Metadata.BackupLocation[0]
 	}
@@ -32,7 +30,6 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 	if raw.Metadata.Creator != nil {
 		show.Details.Creator = raw.Metadata.Creator[0]
 	}
-
 	show.Details.Curation = raw.Metadata.Curation
 	if raw.Metadata.Date != nil {
 		show.Details.Date, _ = time.Parse("2006-01-02", raw.Metadata.Date[0])
@@ -46,12 +43,10 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 	if raw.Metadata.Lineage != nil {
 		show.Details.Lineage = raw.Metadata.Lineage[0]
 	}
-	show.Details.MD5s = raw.Metadata.Md5S
 	show.Details.Mediatype = raw.Metadata.Mediatype
 	show.Details.Notes = raw.Metadata.Notes
-	// TODO Fix format: should include time
 	if raw.Metadata.Publicdate != nil {
-		show.Details.PublicDate, _ = time.Parse("2006-01-02", raw.Metadata.Publicdate[0])
+		show.Details.PublicDate, _ = time.Parse("2006-01-02 15:04:05", raw.Metadata.Publicdate[0])
 	}
 	show.Details.ReviewCount = raw.Reviews.Info.NumReviews
 	// TODO runtime string format is not standard - write parsing function
@@ -73,9 +68,9 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 		show.Details.Transferer = raw.Metadata.Transferer[0]
 	}
 	show.Details.Type = raw.Metadata.Type
-	//TODO Fix format: should include time
+	// TODO This is a list of dates - should get them all
 	if raw.Metadata.Updatedate != nil {
-		show.Details.UpdateDate, _ = time.Parse("2006-01-02", raw.Metadata.Updatedate[0])
+		show.Details.UpdateDate, _ = time.Parse("2006-01-02 15:04:05", raw.Metadata.Updatedate[0])
 	}
 	if raw.Metadata.Updater != nil {
 		show.Details.Updater = raw.Metadata.Updater[0]
@@ -92,17 +87,14 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 
 func unmarshalDeadShowReviews(raw *DeadShowRaw, show *DeadShow) error {
 
-	// TODO: convert to float
-	//show.Details.AverageReview = raw.Reviews.Info.AvgRating
 	for _, r := range raw.Reviews.Reviews {
 		var rev = DeadShowReview{}
 		rev.Body = r.Reviewbody
-		// TODO convert string to date
-		//rev.Date =
+		// TODO handle errors
+		rev.Date, _ = time.Parse("2006-01-02 15:04:05", r.Reviewdate)
 		rev.Reviewer = r.Reviewer
 		rev.Title = r.Reviewtitle
-		// TODO convert to int
-		//rev.Stars = r.Stars
+		rev.Stars, _ = strconv.ParseUint(r.Stars, 0, 64)
 		show.Reviews = append(show.Reviews, rev)
 	}
 	return nil
@@ -114,23 +106,19 @@ func unmarshalDeadShowFiles(raw *DeadShowRaw, show *DeadShow) error {
 			var file = DeadShowFile{}
 
 			file.Album = v.Album
-			// TODO convert
-			//file.Bitrate = v.Bitrate
+			file.Bitrate, _ = strconv.ParseUint(v.Bitrate, 0, 64)
 			file.CRC32 = v.Crc32
 			file.Creator = v.Creator
 			file.Format = v.Format
-			// TODO convert
-			//file.Height = v.Height
-			// TODO convert
+			file.Height, _ = strconv.ParseUint(v.Height, 0, 64)
+			// TODO Parse duration
 			//file.Length = v.Length
 			file.MD5 = v.Md5
-			// TODO convert
-			//file.MTime = v.Mtime
+			file.MTime, _ = strconv.ParseUint(v.Mtime, 0, 64)
 			file.Name = k
 			file.Original = v.Original
 			file.SHA1 = v.Sha1
-			// TODO convert
-			//file.Size = v.Size
+			file.Size, _ = strconv.ParseUint(v.Size, 0, 64)
 			show.Files = append(show.Files, file)
 		}
 	}
@@ -180,7 +168,6 @@ type DeadShowDetails struct {
 	Taper           string
 	Transferer      string
 	RunTime         time.Duration
-	MD5s            []string
 	Notes           []string
 	UpdateDate      time.Time
 	Updater         string
@@ -199,7 +186,7 @@ type DeadShowReview struct {
 	Title    string
 	Reviewer string
 	Date     time.Time
-	Stars    uint8
+	Stars    uint64
 	Body     string
 }
 
@@ -208,9 +195,9 @@ type DeadShowFile struct {
 	Source   string
 	Creator  string
 	Title    string
-	Track    uint16
+	Track    uint64
 	Album    string
-	Bitrate  uint16
+	Bitrate  uint64
 	Format   string
 	Original string
 	MTime    uint64
@@ -219,8 +206,8 @@ type DeadShowFile struct {
 	CRC32    string
 	SHA1     string
 	Length   time.Duration
-	Height   uint16
-	Width    uint16
+	Height   uint64
+	Width    uint64
 }
 
 // Params contains the query parameters passed to archive.org

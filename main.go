@@ -35,7 +35,8 @@ func main() {
 
 		var showResponse DeadShow
 		json.Unmarshal(showJSON, &showResponse)
-		fmt.Printf("%+v\n", showResponse)
+		b, _ := (json.MarshalIndent(showResponse.Details, "", "   "))
+		println(string(b))
 		fmt.Println("***********************")
 
 		fmt.Scanln()
