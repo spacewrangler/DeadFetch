@@ -23,7 +23,7 @@ func main() {
 	fmt.Println("startPage: ", *startPage)
 
 	// Print show details to the console
-	results := searchDeadShows(*numResults, *startPage)
+	results := SearchDeadShows(*numResults, *startPage)
 	for _, doc := range results {
 		fmt.Println(doc.Identifier)
 		showURL := "http://archive.org/details/" + doc.Identifier + "?output=json"
