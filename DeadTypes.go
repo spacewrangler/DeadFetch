@@ -2,9 +2,102 @@ package main
 
 import (
 	"encoding/json"
+	"log"
 	"strconv"
+	"strings"
 	"time"
+
+	"golang.org/x/net/context"
+	"googlemaps.github.io/maps"
 )
+
+type DeadShow struct {
+	Identifier *string          `json:",omitempty"`
+	Server     *string          `json:",omitempty"`
+	Directory  *string          `json:",omitempty"`
+	Details    DeadShowDetails  `json:",omitempty"`
+	Reviews    []DeadShowReview `json:",omitempty"`
+	Files      []DeadShowFile   `json:",omitempty"`
+}
+
+type DeadShowDetails struct {
+	Title           *string        `json:",omitempty"`
+	Creator         *string        `json:",omitempty"`
+	Mediatype       []string       `json:",omitempty"`
+	Collection      []string       `json:",omitempty"`
+	Type            []string       `json:",omitempty"`
+	Description     *string        `json:",omitempty"`
+	Date            *time.Time     `json:",omitempty"`
+	Year            *uint64        `json:",omitempty"`
+	Subject         *string        `json:",omitempty"`
+	PublicDate      *time.Time     `json:",omitempty"`
+	AddedDate       *time.Time     `json:",omitempty"`
+	Venue           *string        `json:",omitempty"`
+	Coverage        *string        `json:",omitempty"`
+	LatLong         *string        `json:",omitempty`
+	Source          *string        `json:",omitempty"`
+	Lineage         *string        `json:",omitempty"`
+	Taper           *string        `json:",omitempty"`
+	Transferer      *string        `json:",omitempty"`
+	RunTime         *time.Duration `json:",omitempty"`
+	Notes           []string       `json:",omitempty"`
+	UpdateDate      *time.Time     `json:",omitempty"`
+	Updater         *string        `json:",omitempty"`
+	Curation        []string       `json:",omitempty"`
+	BackupLocation  *string        `json:",omitempty"`
+	ReviewCount     *uint32        `json:",omitempty"`
+	AverageReview   *float64       `json:",omitempty"`
+	TotalDownloads  *uint32        `json:",omitempty"`
+	DownloadsWeek   *uint32        `json:",omitempty"`
+	DownloadsMonth  *uint32        `json:",omitempty"`
+	ImageLink       *string        `json:",omitempty"`
+	CollectionTitle *string        `json:",omitempty"`
+	SetList         []string       `json:",omitempty"`
+}
+
+type DeadShowReview struct {
+	Title    *string    `json:",omitempty"`
+	Reviewer *string    `json:",omitempty"`
+	Date     *time.Time `json:",omitempty"`
+	Stars    *uint64    `json:",omitempty"`
+	Body     *string    `json:",omitempty"`
+}
+
+type DeadShowFile struct {
+	Name     *string        `json:",omitempty"`
+	Source   *string        `json:",omitempty"`
+	Creator  *string        `json:",omitempty"`
+	Title    *string        `json:",omitempty"`
+	Track    *uint64        `json:",omitempty"`
+	Album    *string        `json:",omitempty"`
+	Bitrate  *uint64        `json:",omitempty"`
+	Format   *string        `json:",omitempty"`
+	Original *string        `json:",omitempty"`
+	MTime    *uint64        `json:",omitempty"`
+	Size     *uint64        `json:",omitempty"`
+	MD5      *string        `json:",omitempty"`
+	CRC32    *string        `json:",omitempty"`
+	SHA1     *string        `json:",omitempty"`
+	Length   *time.Duration `json:",omitempty"`
+	Height   *uint64        `json:",omitempty"`
+	Width    *uint64        `json:",omitempty"`
+}
+
+func convertCityToLatLng(address string) string {
+	// API key: AIzaSyApUX2H9oJB_uA3vOi1CK-kqfDrFSMS6vI
+	c, err := maps.NewClient(maps.WithAPIKey("AIzaSyApUX2H9oJB_uA3vOi1CK-kqfDrFSMS6vI"))
+	if err != nil {
+		log.Fatalf("fatal error: %s", err)
+	}
+
+	r := &maps.GeocodingRequest{
+		Address: address,
+	}
+
+	resp, err := c.Geocode(context.Background(), r)
+	// TODO add a null check here since we may have a nonexistent location
+	return resp[0].Geometry.Location.String()
+}
 
 func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 
@@ -25,6 +118,7 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 			show.Details.AverageReview = &a
 		}
 	}
+
 	if raw.Metadata.BackupLocation != nil {
 		if raw.Metadata.BackupLocation[0] == "" {
 			show.Details.BackupLocation = nil
@@ -35,10 +129,12 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 
 	show.Details.Collection = raw.Metadata.Collection
 
-	if *raw.Misc.CollectionTitle == "" {
-		show.Details.Collection = nil
-	} else {
-		show.Details.CollectionTitle = raw.Misc.CollectionTitle
+	if raw.Misc.CollectionTitle != nil {
+		if *raw.Misc.CollectionTitle == "" {
+			show.Details.Collection = nil
+		} else {
+			show.Details.CollectionTitle = raw.Misc.CollectionTitle
+		}
 	}
 
 	if raw.Metadata.Coverage != nil {
@@ -46,6 +142,8 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 			show.Details.Coverage = nil
 		} else {
 			show.Details.Coverage = &raw.Metadata.Coverage[0]
+			ll := convertCityToLatLng(raw.Metadata.Coverage[0])
+			show.Details.LatLong = &ll
 		}
 	}
 
@@ -79,10 +177,12 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 	show.Details.DownloadsMonth = raw.Item.Month
 	show.Details.DownloadsWeek = raw.Item.Week
 
-	if *raw.Misc.Image == "" {
-		show.Details.ImageLink = nil
-	} else {
-		show.Details.ImageLink = raw.Misc.Image
+	if raw.Misc.Image != nil {
+		if *raw.Misc.Image == "" {
+			show.Details.ImageLink = nil
+		} else {
+			show.Details.ImageLink = raw.Misc.Image
+		}
 	}
 
 	if raw.Metadata.Lineage != nil {
@@ -176,7 +276,7 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 		if raw.Metadata.Year[0] == "" {
 			show.Details.Year = nil
 		} else {
-			u, _ := strconv.ParseUint(raw.Metadata.Year[0], 0, 64)
+			u, _ := strconv.ParseUint(raw.Metadata.Year[0], 10, 64)
 			show.Details.Year = &u
 		}
 	}
@@ -226,7 +326,7 @@ func unmarshalDeadShowReviews(raw *DeadShowRaw, show *DeadShow) error {
 			if *r.Stars == "" {
 				rev.Stars = nil
 			} else {
-				u, _ := strconv.ParseUint(*r.Stars, 0, 64)
+				u, _ := strconv.ParseUint(*r.Stars, 10, 64)
 				rev.Stars = &u
 			}
 		}
@@ -238,6 +338,9 @@ func unmarshalDeadShowReviews(raw *DeadShowRaw, show *DeadShow) error {
 
 func unmarshalDeadShowFiles(raw *DeadShowRaw, show *DeadShow) error {
 	if raw.Files != nil {
+
+		setList := make(map[int]string)
+
 		for k, v := range raw.Files {
 			var file = DeadShowFile{}
 
@@ -253,7 +356,7 @@ func unmarshalDeadShowFiles(raw *DeadShowRaw, show *DeadShow) error {
 				if *v.Bitrate == "" {
 					file.Bitrate = nil
 				} else {
-					u, _ := strconv.ParseUint(*v.Bitrate, 0, 64)
+					u, _ := strconv.ParseUint(*v.Bitrate, 10, 64)
 					file.Bitrate = &u
 				}
 			}
@@ -286,7 +389,7 @@ func unmarshalDeadShowFiles(raw *DeadShowRaw, show *DeadShow) error {
 				if *v.Height == "" {
 					file.Height = nil
 				} else {
-					u, _ := strconv.ParseUint(*v.Height, 0, 64)
+					u, _ := strconv.ParseUint(*v.Height, 10, 64)
 					file.Height = &u
 				}
 			}
@@ -306,7 +409,7 @@ func unmarshalDeadShowFiles(raw *DeadShowRaw, show *DeadShow) error {
 				if *v.Mtime == "" {
 					file.MTime = nil
 				} else {
-					u, _ := strconv.ParseUint(*v.Mtime, 0, 64)
+					u, _ := strconv.ParseUint(*v.Mtime, 10, 64)
 					file.MTime = &u
 				}
 			}
@@ -333,14 +436,43 @@ func unmarshalDeadShowFiles(raw *DeadShowRaw, show *DeadShow) error {
 				if *v.Size == "" {
 					file.Size = nil
 				} else {
-					u, _ := strconv.ParseUint(*v.Size, 0, 64)
+					u, _ := strconv.ParseUint(*v.Size, 10, 64)
 					file.Size = &u
 				}
 			}
 
+			if v.Title != nil {
+				if *v.Title == "" {
+					file.Title = nil
+				} else {
+					file.Title = v.Title
+				}
+			}
+
+			if v.Track != nil {
+				if *v.Track == "" {
+					file.Track = nil
+				} else {
+					u, _ := strconv.ParseUint(*v.Track, 10, 64)
+					file.Track = &u
+				}
+			}
+
 			show.Files = append(show.Files, file)
+
+			// Create the SetList
+			if strings.HasSuffix(strings.ToLower(*file.Name), "mp3") {
+				if file.Track != nil && file.Title != nil {
+					setList[int(*file.Track)] = *file.Title
+				}
+			}
+		}
+
+		for i := 0; i < len(setList); i++ {
+			show.Details.SetList = append(show.Details.SetList, setList[i+1])
 		}
 	}
+
 	return nil
 }
 
@@ -373,74 +505,4 @@ func (ds *DeadShow) UnmarshalJSON(data []byte) error {
 	unmarshalDeadShowFiles(&temp, ds)
 
 	return nil
-}
-
-type DeadShow struct {
-	Identifier *string
-	Server     *string
-	Directory  *string
-	Details    DeadShowDetails
-	Reviews    []DeadShowReview
-	Files      []DeadShowFile
-}
-
-type DeadShowDetails struct {
-	Title           *string
-	Creator         *string
-	Mediatype       []string
-	Collection      []string
-	Type            []string
-	Description     *string
-	Date            *time.Time
-	Year            *uint64
-	Subject         *string
-	PublicDate      *time.Time
-	AddedDate       *time.Time
-	Venue           *string
-	Coverage        *string
-	Source          *string
-	Lineage         *string
-	Taper           *string
-	Transferer      *string
-	RunTime         *time.Duration
-	Notes           []string
-	UpdateDate      *time.Time
-	Updater         *string
-	Curation        []string
-	BackupLocation  *string
-	ReviewCount     *uint32
-	AverageReview   *float64
-	TotalDownloads  *uint32
-	DownloadsWeek   *uint32
-	DownloadsMonth  *uint32
-	ImageLink       *string
-	CollectionTitle *string
-}
-
-type DeadShowReview struct {
-	Title    *string
-	Reviewer *string
-	Date     *time.Time
-	Stars    *uint64
-	Body     *string
-}
-
-type DeadShowFile struct {
-	Name     *string
-	Source   *string
-	Creator  *string
-	Title    *string
-	Track    *uint64
-	Album    *string
-	Bitrate  *uint64
-	Format   *string
-	Original *string
-	MTime    *uint64
-	Size     *uint64
-	MD5      *string
-	CRC32    *string
-	SHA1     *string
-	Length   *time.Duration
-	Height   *uint64
-	Width    *uint64
 }
