@@ -34,7 +34,7 @@ type DeadShowDetails struct {
 	AddedDate       *time.Time     `json:",omitempty"`
 	Venue           *string        `json:",omitempty"`
 	Coverage        *string        `json:",omitempty"`
-	LatLong         *string        `json:",omitempty`
+	LatLong         *string        `json:",omitempty"`
 	Source          *string        `json:",omitempty"`
 	Lineage         *string        `json:",omitempty"`
 	Taper           *string        `json:",omitempty"`
@@ -95,8 +95,10 @@ func convertCityToLatLng(address string) string {
 	}
 
 	resp, err := c.Geocode(context.Background(), r)
-	// TODO add a null check here since we may have a nonexistent location
-	return resp[0].Geometry.Location.String()
+	if resp != nil {
+		return resp[0].Geometry.Location.String()
+	}
+	return ""
 }
 
 func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
@@ -143,7 +145,11 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 		} else {
 			show.Details.Coverage = &raw.Metadata.Coverage[0]
 			ll := convertCityToLatLng(raw.Metadata.Coverage[0])
-			show.Details.LatLong = &ll
+			if ll != "" {
+				show.Details.LatLong = &ll
+			} else {
+				show.Details.LatLong = nil
+			}
 		}
 	}
 

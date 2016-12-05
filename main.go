@@ -10,7 +10,6 @@ import (
 	"os"
 
 	"golang.org/x/net/context"
-
 	"gopkg.in/olivere/elastic.v5"
 )
 
@@ -76,8 +75,16 @@ func main() {
 		json.Unmarshal(showJSON, &showResponse)
 
 		show, _ := json.Marshal(showResponse.Details)
-		fmt.Println(*showResponse.Details.Coverage)
-		fmt.Println(convertCityToLatLng(*showResponse.Details.Coverage))
+		if showResponse.Details.Coverage != nil {
+			fmt.Println(*showResponse.Details.Coverage)
+		} else {
+			fmt.Println("No location given for show")
+		}
+		if showResponse.Details.LatLong != nil {
+			fmt.Println(*showResponse.Details.LatLong)
+		} else {
+			fmt.Println("No Lat/Long available for show")
+		}
 
 		Trace.Println("Indexing: {0}", *showResponse.Identifier)
 		put1, err := client.Index().
