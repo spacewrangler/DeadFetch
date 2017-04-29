@@ -144,9 +144,13 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 			show.Details.Coverage = nil
 		} else {
 			show.Details.Coverage = &raw.Metadata.Coverage[0]
-			ll := convertCityToLatLng(raw.Metadata.Coverage[0])
-			if ll != "" {
-				show.Details.LatLong = &ll
+			if config.GeoLookup == true {
+				ll := convertCityToLatLng(raw.Metadata.Coverage[0])
+				if ll != "" {
+					show.Details.LatLong = &ll
+				} else {
+					show.Details.LatLong = nil
+				}
 			} else {
 				show.Details.LatLong = nil
 			}
