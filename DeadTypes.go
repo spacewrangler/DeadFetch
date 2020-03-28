@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"strconv"
 	"strings"
@@ -155,8 +156,13 @@ func geocodingResultToGeoLocation(gc maps.GeocodingResult) GeoLocation {
 func cityToGeoLocation(city string) GeoLocation {
 	var gl GeoLocation
 
-	// API key: AIzaSyCuRfG4FC3sx5OZydpXwWmXqV9MnWvr_R4
-	c, err := maps.NewClient(maps.WithAPIKey("AIzaSyCuRfG4FC3sx5OZydpXwWmXqV9MnWvr_R4"))
+	dat, err := ioutil.ReadFile("api.key")
+	s := string(dat)
+	if err != nil {
+		panic(err)
+	}
+
+	c, err := maps.NewClient(maps.WithAPIKey(s))
 	if err != nil {
 		log.Fatalf("fatal error: %s", err)
 	}
