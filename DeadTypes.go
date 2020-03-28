@@ -2,14 +2,55 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"strconv"
 	"strings"
 	"time"
 
+	"github.com/olivere/elastic/v7"
 	"golang.org/x/net/context"
 	"googlemaps.github.io/maps"
 )
+
+type GeoLocation struct {
+	AddressComponents []AddressComponents `json:"address_components,omitempty"`
+	FormattedAddress  string              `json:"formatted_address,omitempty"`
+	Geometry          Geometry            `json:"geometry,omitempty"`
+	PlaceID           string              `json:"place_id,omitempty"`
+	Types             []string            `json:"types,omitempty"`
+}
+type AddressComponents struct {
+	LongName  string   `json:"long_name,omitempty"`
+	ShortName string   `json:"short_name,omitempty"`
+	Types     []string `json:"types,omitempty"`
+}
+type Northeast struct {
+	Lat float64 `json:"lat,omitempty"`
+	Lng float64 `json:"lng,omitempty"`
+}
+type Southwest struct {
+	Lat float64 `json:"lat,omitempty"`
+	Lng float64 `json:"lng,omitempty"`
+}
+type Bounds struct {
+	Northeast Northeast `json:"northeast,omitempty"`
+	Southwest Southwest `json:"southwest,omitempty"`
+}
+type Location struct {
+	Lat float64 `json:"lat,omitempty"`
+	Lng float64 `json:"lng,omitempty"`
+}
+type Viewport struct {
+	Northeast Northeast `json:"northeast,omitempty"`
+	Southwest Southwest `json:"southwest,omitempty"`
+}
+type Geometry struct {
+	Bounds       Bounds   `json:"bounds,omitempty"`
+	Location     Location `json:"location,omitempty"`
+	LocationType string   `json:"location_type,omitempty"`
+	Viewport     Viewport `json:"viewport,omitempty"`
+}
 
 type DeadShow struct {
 	Identifier *string          `json:",omitempty"`
@@ -83,22 +124,85 @@ type DeadShowFile struct {
 	Width    *uint64        `json:",omitempty"`
 }
 
-func convertCityToLatLng(address string) string {
-	// API key: AIzaSyApUX2H9oJB_uA3vOi1CK-kqfDrFSMS6vI
-	c, err := maps.NewClient(maps.WithAPIKey("AIzaSyApUX2H9oJB_uA3vOi1CK-kqfDrFSMS6vI"))
+func geocodingResultToGeoLocation(gc maps.GeocodingResult) GeoLocation {
+	var gl GeoLocation
+
+	for i := range gc.AddressComponents {
+		var ac AddressComponents
+		ac.LongName = gc.AddressComponents[i].LongName
+		ac.ShortName = gc.AddressComponents[i].ShortName
+		ac.Types = gc.AddressComponents[i].Types
+		gl.AddressComponents = append(gl.AddressComponents, ac)
+	}
+	gl.FormattedAddress = gc.FormattedAddress
+	gl.Geometry.Bounds.Northeast.Lat = gc.Geometry.Bounds.NorthEast.Lat
+	gl.Geometry.Bounds.Northeast.Lng = gc.Geometry.Bounds.NorthEast.Lng
+	gl.Geometry.Bounds.Southwest.Lat = gc.Geometry.Bounds.NorthEast.Lat
+	gl.Geometry.Bounds.Southwest.Lng = gc.Geometry.Bounds.NorthEast.Lng
+	gl.Geometry.Location.Lat = gc.Geometry.Location.Lat
+	gl.Geometry.Location.Lng = gc.Geometry.Location.Lng
+	gl.Geometry.LocationType = gc.Geometry.LocationType
+	gl.Geometry.Viewport.Northeast.Lat = gc.Geometry.Viewport.NorthEast.Lat
+	gl.Geometry.Viewport.Northeast.Lng = gc.Geometry.Viewport.NorthEast.Lng
+	gl.Geometry.Viewport.Southwest.Lat = gc.Geometry.Viewport.SouthWest.Lat
+	gl.Geometry.Viewport.Southwest.Lng = gc.Geometry.Viewport.SouthWest.Lng
+	gl.PlaceID = gc.PlaceID
+	gl.Types = gc.Types
+
+	return gl
+}
+
+func cityToGeoLocation(city string) GeoLocation {
+	var gl GeoLocation
+
+	// API key: AIzaSyCuRfG4FC3sx5OZydpXwWmXqV9MnWvr_R4
+	c, err := maps.NewClient(maps.WithAPIKey("AIzaSyCuRfG4FC3sx5OZydpXwWmXqV9MnWvr_R4"))
 	if err != nil {
 		log.Fatalf("fatal error: %s", err)
 	}
 
-	r := &maps.GeocodingRequest{
-		Address: address,
-	}
+	q := elastic.NewMatchQuery("formatted_address", city).
+		Operator("AND").
+		Fuzziness("AUTO")
 
-	resp, err := c.Geocode(context.Background(), r)
-	if resp != nil {
-		return resp[0].Geometry.Location.String()
+	sr, err := client.Search().
+		Index("geolocation").
+		Query(q).
+		From(0).
+		Size(1).
+		Do(context.TODO())
+
+	// Not found in elasticsearch
+	if sr.TotalHits() == 0 {
+
+		// Fetch from Google
+		r := &maps.GeocodingRequest{
+			Address: city,
+		}
+		resp, err := c.Geocode(context.Background(), r)
+		if err != nil {
+			panic(err)
+		}
+		if resp != nil {
+			gl = geocodingResultToGeoLocation(resp[0])
+			put1, err := client.Index().
+				Index("geolocation").
+				Id(gl.PlaceID).
+				BodyJson(gl).
+				Do(context.Background())
+			if err != nil {
+				// Handle error
+				panic(err)
+			}
+			log.Printf("Index result: %s, status: %d\n", put1.Result, put1.Status)
+		}
+	} else {
+		json.Unmarshal(sr.Hits.Hits[0].Source, &gl)
+		if err != nil {
+			panic(err)
+		}
 	}
-	return ""
+	return gl
 }
 
 func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
@@ -145,12 +249,9 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 		} else {
 			show.Details.Coverage = &raw.Metadata.Coverage[0]
 			if config.GeoLookup == true {
-				ll := convertCityToLatLng(raw.Metadata.Coverage[0])
-				if ll != "" {
-					show.Details.LatLong = &ll
-				} else {
-					show.Details.LatLong = nil
-				}
+				ll := cityToGeoLocation(raw.Metadata.Coverage[0])
+				s := fmt.Sprintf("%f,%f", ll.Geometry.Location.Lat, ll.Geometry.Location.Lng)
+				show.Details.LatLong = &s
 			} else {
 				show.Details.LatLong = nil
 			}

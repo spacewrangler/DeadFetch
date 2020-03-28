@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/olivere/elastic/v7"
 	"golang.org/x/net/context"
-	"gopkg.in/olivere/elastic.v5"
 )
 
 type Config struct {
@@ -93,7 +93,7 @@ func indexDeadShow(show *DeadShow) {
 	details, _ := json.Marshal(show.Details)
 	put1, err := client.Index().
 		Index("deadshows").
-		Type("deadshow").
+		// Type("deadshow").
 		Id(string(*show.Identifier)).
 		// TODO: this has been null before. Check that show is actually retrieved.
 		// If not, re-fetch
@@ -104,7 +104,7 @@ func indexDeadShow(show *DeadShow) {
 		panic(err)
 	}
 
-	Trace.Println("Created:", put1.Created, "Version:", put1.Version)
+	Trace.Println("Status:", put1.Status, "Version:", put1.Version)
 }
 
 func fetchDeadShow(id string) DeadShow {
@@ -153,6 +153,7 @@ func main() {
 	// Print show details to the console
 	results := SearchDeadShows(config.NumberOfResults, config.StartPage)
 	Trace.Println("Number of results:", len(results))
+	count := 0
 	var show DeadShow
 	for _, doc := range results {
 		show = fetchDeadShow(doc.Identifier)
@@ -161,20 +162,7 @@ func main() {
 			indexDeadShow(&show)
 
 		}
-		// get1, err := client.Get().
-		// 	Index("deadshows").
-		// 	Type("deadshow").
-		// 	Id(string(*showResponse.Identifier)).
-		// 	Do()
-		// if err != nil {
-		// 	// Handle error
-		// 	panic(err)
-		// }
-
-		// if get1.Found {
-		// 	fmt.Printf("Got document %s in version %d from index %s, type %s\n", get1.Id, get1.Version, get1.Index, get1.Type)
-		// }
-
-		//fmt.Scanln()
+		count++
+		Trace.Println(count)
 	}
 }
