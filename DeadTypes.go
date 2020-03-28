@@ -75,8 +75,8 @@ type DeadShowDetails struct {
 	PublicDate      *time.Time     `json:",omitempty"`
 	AddedDate       *time.Time     `json:",omitempty"`
 	Venue           *string        `json:",omitempty"`
-	Coverage        *string        `json:",omitempty"`
-	LatLong         *string        `json:",omitempty"`
+	Location        *string        `json:",omitempty"`
+	GeoLocation     *string        `json:",omitempty"`
 	Source          *string        `json:",omitempty"`
 	Lineage         *string        `json:",omitempty"`
 	Taper           *string        `json:",omitempty"`
@@ -189,7 +189,7 @@ func cityToGeoLocation(city string) GeoLocation {
 		if err != nil {
 			panic(err)
 		}
-		if resp != nil {
+		if len(resp) != 0 {
 			gl = geocodingResultToGeoLocation(resp[0])
 			put1, err := client.Index().
 				Index("geolocation").
@@ -249,17 +249,18 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 		}
 	}
 
+	// TODO: get location name from geolocation data also
 	if raw.Metadata.Coverage != nil {
 		if raw.Metadata.Coverage[0] == "" {
-			show.Details.Coverage = nil
+			show.Details.Location = nil
 		} else {
-			show.Details.Coverage = &raw.Metadata.Coverage[0]
+			show.Details.Location = &raw.Metadata.Coverage[0]
 			if config.GeoLookup == true {
 				ll := cityToGeoLocation(raw.Metadata.Coverage[0])
 				s := fmt.Sprintf("%f,%f", ll.Geometry.Location.Lat, ll.Geometry.Location.Lng)
-				show.Details.LatLong = &s
+				show.Details.GeoLocation = &s
 			} else {
-				show.Details.LatLong = nil
+				show.Details.GeoLocation = nil
 			}
 		}
 	}

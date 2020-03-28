@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sync"
 
 	"github.com/olivere/elastic/v7"
 	"golang.org/x/net/context"
@@ -118,18 +119,33 @@ func fetchDeadShow(id string) DeadShow {
 	var showResponse DeadShow
 	json.Unmarshal(showJSON, &showResponse)
 
-	if showResponse.Details.Coverage != nil {
-		fmt.Println(*showResponse.Details.Coverage)
+	if showResponse.Details.Location != nil {
+		fmt.Println(*showResponse.Details.Location)
 	} else {
 		fmt.Println("No location given for show")
 	}
-	if showResponse.Details.LatLong != nil {
-		fmt.Println(*showResponse.Details.LatLong)
+	if showResponse.Details.GeoLocation != nil {
+		fmt.Println(*showResponse.Details.GeoLocation)
 	} else {
 		fmt.Println("No Lat/Long available for show")
 	}
 
 	return showResponse
+}
+
+func processResults(docs []ArchiveDoc, wg *sync.WaitGroup) {
+	var show DeadShow
+
+	defer wg.Done()
+
+	for _, doc := range docs {
+		show = fetchDeadShow(doc.Identifier)
+
+		if config.IndexToElasticSearch {
+			indexDeadShow(&show)
+
+		}
+	}
 }
 
 func main() {
@@ -153,16 +169,25 @@ func main() {
 	// Print show details to the console
 	results := SearchDeadShows(config.NumberOfResults, config.StartPage)
 	Trace.Println("Number of results:", len(results))
-	count := 0
-	var show DeadShow
-	for _, doc := range results {
-		show = fetchDeadShow(doc.Identifier)
 
-		if config.IndexToElasticSearch {
-			indexDeadShow(&show)
+	var divided [][]ArchiveDoc
+	numCPU := 8
 
+	chunkSize := (len(results) + numCPU - 1) / numCPU
+
+	for i := 0; i < len(results); i += chunkSize {
+		end := i + chunkSize
+
+		if end > len(results) {
+			end = len(results)
 		}
-		count++
-		Trace.Println(count)
+
+		divided = append(divided, results[i:end])
 	}
+	var wg sync.WaitGroup
+	for i := 0; i < numCPU; i++ {
+		wg.Add(1)
+		go processResults(divided[i], &wg)
+	}
+	wg.Wait()
 }
