@@ -156,17 +156,6 @@ func geocodingResultToGeoLocation(gc maps.GeocodingResult) GeoLocation {
 func cityToGeoLocation(city string) GeoLocation {
 	var gl GeoLocation
 
-	dat, err := ioutil.ReadFile("api.key")
-	s := string(dat)
-	if err != nil {
-		panic(err)
-	}
-
-	c, err := maps.NewClient(maps.WithAPIKey(s))
-	if err != nil {
-		log.Fatalf("fatal error: %s", err)
-	}
-
 	q := elastic.NewMatchQuery("formatted_address", city).
 		Operator("AND").
 		Fuzziness("AUTO")
@@ -182,6 +171,17 @@ func cityToGeoLocation(city string) GeoLocation {
 	if sr.TotalHits() == 0 {
 
 		// Fetch from Google
+		// TODO: hoist this out so I'm not reading the file and creating connection each time
+		dat, err := ioutil.ReadFile("api.key")
+		s := string(dat)
+		if err != nil {
+			panic(err)
+		}
+
+		c, err := maps.NewClient(maps.WithAPIKey(s))
+		if err != nil {
+			log.Fatalf("fatal error: %s", err)
+		}
 		r := &maps.GeocodingRequest{
 			Address: city,
 		}
@@ -319,7 +319,7 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 	}
 
 	show.Details.ReviewCount = raw.Reviews.Info.NumReviews
-	// TODO runtime string format is not standard - write parsing function
+	// TODO: runtime string format is not standard - write parsing function
 	//show.Details.RunTime =
 
 	if raw.Metadata.Source != nil {
@@ -363,7 +363,7 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 		}
 	}
 	show.Details.Type = raw.Metadata.Type
-	// TODO This is a list of dates - should get them all
+	// TODO: This is a list of dates - should get them all
 	if raw.Metadata.Updatedate != nil {
 		if raw.Metadata.Updatedate[0] == "" {
 			show.Details.UpdateDate = nil
@@ -511,7 +511,7 @@ func unmarshalDeadShowFiles(raw *DeadShowRaw, show *DeadShow) error {
 				}
 			}
 
-			// TODO Parse duration
+			// TODO: Parse duration
 			//file.Length = v.Length
 
 			if v.Md5 != nil {

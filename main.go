@@ -75,7 +75,7 @@ func initElasticsearch(url *string) {
 	}
 	if !exists {
 		// Create an index
-		// TODO increase 1K field limit
+		// TODO: increase 1K field limit
 		createIndex, err := client.CreateIndex("deadshows").Do(context.TODO())
 		if err != nil {
 			// Handle error
