@@ -249,7 +249,6 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 		}
 	}
 
-	// TODO: get location name from geolocation data also
 	if raw.Metadata.Coverage != nil {
 		if raw.Metadata.Coverage[0] == "" {
 			show.Details.Location = nil
