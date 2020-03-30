@@ -254,10 +254,10 @@ func unmarshalDeadShowDetails(raw *DeadShowRaw, show *DeadShow) error {
 		if raw.Metadata.Coverage[0] == "" {
 			show.Details.Location = nil
 		} else {
-			show.Details.Location = &raw.Metadata.Coverage[0]
 			if config.GeoLookup == true {
-				ll := cityToGeoLocation(raw.Metadata.Coverage[0])
-				s := fmt.Sprintf("%f,%f", ll.Geometry.Location.Lat, ll.Geometry.Location.Lng)
+				gl := cityToGeoLocation(raw.Metadata.Coverage[0])
+				show.Details.Location = &gl.FormattedAddress
+				s := fmt.Sprintf("%f,%f", gl.Geometry.Location.Lat, gl.Geometry.Location.Lng)
 				show.Details.GeoLocation = &s
 			} else {
 				show.Details.GeoLocation = nil
