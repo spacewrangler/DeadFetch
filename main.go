@@ -47,11 +47,16 @@ func init() {
 
 func initElasticsearch(url *string) {
 	// Setup elastic
-	errorlog := log.New(os.Stdout, "APP ", log.LstdFlags)
+	//errorlog := log.New(os.Stdout, "APP ", log.LstdFlags)
+	file, err := os.OpenFile("elastic.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0664)
+	if err != nil {
+		panic(err)
+	}
 
-	var err error
 	client, err = elastic.NewClient(
-		elastic.SetErrorLog(errorlog),
+		elastic.SetErrorLog(log.New(file, "ELASTIC ", log.LstdFlags)),
+		elastic.SetInfoLog(log.New(file, "ELASTIC ", log.LstdFlags)),
+		elastic.SetTraceLog(log.New(file, "ELASTIC ", log.LstdFlags)),
 		elastic.SetURL(*url))
 	if err != nil {
 		// Handle error
@@ -61,13 +66,13 @@ func initElasticsearch(url *string) {
 	// Trace request and response details like this
 	//client.SetTracer(log.New(os.Stdout, "", 0))
 	// Ping the Elasticsearch server to get e.g. the version number
-	info, code, err := client.Ping(config.ElasticsearchURL).Do(context.TODO())
+	_, _, err = client.Ping(config.ElasticsearchURL).Do(context.TODO())
 	if err != nil {
 		// Handle error
 		panic(err)
 	}
 
-	fmt.Printf("Elasticsearch returned with code %d and version %s\n", code, info.Version.Number)
+	//fmt.Printf("Elasticsearch returned with code %d and version %s\n", code, info.Version.Number)
 
 	exists, err := client.IndexExists("deadshows").Do(context.TODO())
 	if err != nil {
