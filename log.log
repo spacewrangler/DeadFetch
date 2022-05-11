@@ -1,0 +1,360 @@
+TRACE: 2021/02/14 17:51:07 main.go:36: Starting the app...
+TRACE: 2021/02/14 17:51:14 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:51:33 DeadTypes.go:172: City: Jackson, Mississippi - not found in ES 
+TRACE: 2021/02/14 17:51:38 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:51:39 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:51:40 DeadTypes.go:172: City: Park West, UT - not found in ES 
+TRACE: 2021/02/14 17:51:40 DeadTypes.go:172: City: East Rutherford, New Jersey - not found in ES 
+TRACE: 2021/02/14 17:51:44 DeadTypes.go:172: City: Telluride, Colorado - not found in ES 
+TRACE: 2021/02/14 17:51:45 DeadTypes.go:172: City: East Rutherford, New Jersey - not found in ES 
+TRACE: 2021/02/14 17:51:45 DeadTypes.go:172: City: Telluride, Colorado - not found in ES 
+TRACE: 2021/02/14 17:51:47 DeadTypes.go:172: City: Morrison, Colorado - not found in ES 
+TRACE: 2021/02/14 17:51:47 DeadTypes.go:172: City: Paris, FR - not found in ES 
+TRACE: 2021/02/14 17:51:47 DeadTypes.go:172: City: Paris, FR - not found in ES 
+TRACE: 2021/02/14 17:51:48 DeadTypes.go:172: City: Unknown - not found in ES 
+TRACE: 2021/02/14 17:51:48 DeadTypes.go:172: City: Morrison, Colorado - not found in ES 
+TRACE: 2021/02/14 17:51:49 DeadTypes.go:172: City: Omaha, NB - not found in ES 
+TRACE: 2021/02/14 17:51:50 DeadTypes.go:172: City: Morrison, Colorado - not found in ES 
+TRACE: 2021/02/14 17:51:54 DeadTypes.go:172: City: Munich, West Germany - not found in ES 
+TRACE: 2021/02/14 17:51:54 DeadTypes.go:172: City: Munich, West Germany - not found in ES 
+TRACE: 2021/02/14 17:51:57 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:51:57 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:51:57 DeadTypes.go:172: City: Augusta, Maine - not found in ES 
+TRACE: 2021/02/14 17:51:57 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:51:58 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:51:58 DeadTypes.go:172: City: London, EN - not found in ES 
+TRACE: 2021/02/14 17:51:59 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:51:59 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:00 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:00 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:00 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:01 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:01 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:02 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:02 DeadTypes.go:172: City: Multiple - not found in ES 
+TRACE: 2021/02/14 17:52:02 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:03 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2021/02/14 17:52:03 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:04 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:04 DeadTypes.go:172: City: London, EN - not found in ES 
+TRACE: 2021/02/14 17:52:04 DeadTypes.go:172: City: London, EN - not found in ES 
+TRACE: 2021/02/14 17:52:04 DeadTypes.go:172: City: Augusta, Maine - not found in ES 
+TRACE: 2021/02/14 17:52:05 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:06 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:06 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:07 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:07 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:07 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:08 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:08 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:09 DeadTypes.go:172: City: Various - not found in ES 
+TRACE: 2021/02/14 17:52:09 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:09 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:52:10 DeadTypes.go:172: City: Edinburgh, Scotland - not found in ES 
+TRACE: 2021/02/14 17:52:10 DeadTypes.go:172: City: Edinburgh, Scotland - not found in ES 
+TRACE: 2021/02/14 17:52:11 DeadTypes.go:172: City: Edinburgh, Scotland - not found in ES 
+TRACE: 2021/02/14 17:52:13 DeadTypes.go:172: City: Worcester, Mass. - not found in ES 
+TRACE: 2021/02/14 17:52:17 DeadTypes.go:172: City: Toronto, CA - not found in ES 
+TRACE: 2021/02/14 17:52:18 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:18 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2021/02/14 17:52:19 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:19 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2021/02/14 17:52:19 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:20 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:20 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:21 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:21 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:22 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:22 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2021/02/14 17:52:22 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:23 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2021/02/14 17:52:23 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:23 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2021/02/14 17:52:23 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2021/02/14 17:52:23 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:24 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:24 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2021/02/14 17:52:24 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:26 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2021/02/14 17:52:26 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2021/02/14 17:52:27 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2021/02/14 17:52:28 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2021/02/14 17:52:29 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2021/02/14 17:52:29 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2021/02/14 17:52:30 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2021/02/14 17:52:31 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2021/02/14 17:52:32 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2021/02/14 17:52:34 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2021/02/14 17:52:43 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2021/02/14 17:52:44 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2021/02/14 17:52:51 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:52 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:52 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:52:54 DeadTypes.go:172: City: Berkeley, California - not found in ES 
+TRACE: 2021/02/14 17:52:57 DeadTypes.go:172: City: Berkeley, California - not found in ES 
+TRACE: 2021/02/14 17:53:01 DeadTypes.go:172: City: Unknown, Unknown - not found in ES 
+TRACE: 2021/02/14 17:53:02 DeadTypes.go:172: City: Berkeley, California - not found in ES 
+TRACE: 2021/02/14 17:53:34 DeadTypes.go:172: City: Mill Valley, California - not found in ES 
+TRACE: 2021/02/14 17:53:36 DeadTypes.go:172: City: San Rafael, California - not found in ES 
+TRACE: 2021/02/14 17:53:37 DeadTypes.go:172: City: Mill Valley, California - not found in ES 
+TRACE: 2021/02/14 17:53:37 DeadTypes.go:172: City: Mill Valley, California - not found in ES 
+TRACE: 2021/02/14 17:53:38 DeadTypes.go:172: City: Mill Valley, California - not found in ES 
+TRACE: 2021/02/14 17:53:38 DeadTypes.go:172: City: Studio - not found in ES 
+TRACE: 2021/02/14 17:53:38 DeadTypes.go:172: City: Hamilton Ontario, CA - not found in ES 
+TRACE: 2021/02/14 17:53:39 DeadTypes.go:172: City: Hamilton Ontario, CA - not found in ES 
+TRACE: 2021/02/14 17:53:40 DeadTypes.go:172: City: Hamilton Ontario, CA - not found in ES 
+TRACE: 2021/02/14 17:53:42 DeadTypes.go:172: City: Unknown, Unknown - not found in ES 
+TRACE: 2021/02/14 17:53:46 DeadTypes.go:172: City: Munich, GE - not found in ES 
+TRACE: 2021/02/14 17:53:47 DeadTypes.go:172: City: London, EN - not found in ES 
+TRACE: 2021/02/14 17:53:47 DeadTypes.go:172: City: London, EN - not found in ES 
+TRACE: 2021/02/14 17:53:48 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2021/02/14 17:53:59 DeadTypes.go:172: City: East Rutherford, New Jersey - not found in ES 
+TRACE: 2021/02/14 17:53:59 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2021/02/14 17:54:00 DeadTypes.go:172: City: Unknown, CA - not found in ES 
+TRACE: 2021/02/14 17:54:00 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 19:23:19 main.go:36: Starting the app...
+TRACE: 2022/05/03 19:27:49 main.go:36: Starting the app...
+TRACE: 2022/05/03 19:28:02 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 19:28:05 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 19:36:47 main.go:36: Starting the app...
+TRACE: 2022/05/03 19:37:25 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 19:37:33 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 19:37:44 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 19:37:45 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 19:37:48 DeadTypes.go:172: City: Toronto, CA - not found in ES 
+TRACE: 2022/05/03 19:37:50 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 19:37:50 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 19:37:54 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 19:37:54 DeadTypes.go:172: City: East Rutherford, New Jersey - not found in ES 
+TRACE: 2022/05/03 19:37:54 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 19:37:55 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 19:37:56 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 19:37:56 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 19:37:57 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 19:37:57 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 19:37:58 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 19:37:58 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 19:42:19 main.go:36: Starting the app...
+TRACE: 2022/05/03 19:42:31 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 19:42:55 main.go:36: Starting the app...
+TRACE: 2022/05/03 19:43:04 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 19:43:07 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 19:43:18 DeadTypes.go:172: City: Toronto, CA - not found in ES 
+TRACE: 2022/05/03 19:43:19 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 19:43:19 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 19:43:20 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 19:43:46 main.go:36: Starting the app...
+TRACE: 2022/05/03 19:43:56 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 19:45:01 main.go:36: Starting the app...
+TRACE: 2022/05/03 19:45:11 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 19:45:13 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 19:46:20 main.go:36: Starting the app...
+TRACE: 2022/05/03 19:47:30 main.go:36: Starting the app...
+TRACE: 2022/05/03 19:47:39 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 19:47:42 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 19:47:53 DeadTypes.go:172: City: Toronto, CA - not found in ES 
+TRACE: 2022/05/03 19:47:54 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 19:47:54 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 19:47:55 DeadTypes.go:172: City: East Rutherford, New Jersey - not found in ES 
+TRACE: 2022/05/03 19:48:47 main.go:36: Starting the app...
+TRACE: 2022/05/03 19:49:38 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 19:51:07 main.go:36: Starting the app...
+TRACE: 2022/05/03 19:51:17 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 19:51:20 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 19:51:31 DeadTypes.go:172: City: Toronto, CA - not found in ES 
+TRACE: 2022/05/03 19:51:31 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 19:51:32 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 19:53:24 main.go:36: Starting the app...
+TRACE: 2022/05/03 19:53:35 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 19:53:36 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 19:53:46 DeadTypes.go:172: City: Toronto, CA - not found in ES 
+TRACE: 2022/05/03 19:53:47 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 19:53:48 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 19:53:48 DeadTypes.go:172: City: East Rutherford, New Jersey - not found in ES 
+TRACE: 2022/05/03 19:53:50 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 19:53:50 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 19:53:51 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 19:53:51 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 19:53:51 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 19:53:51 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 19:53:51 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 19:59:57 main.go:36: Starting the app...
+TRACE: 2022/05/03 20:00:10 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 20:00:13 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 20:00:23 DeadTypes.go:172: City: Toronto, CA - not found in ES 
+TRACE: 2022/05/03 20:00:24 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 20:00:24 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 20:00:29 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 20:00:29 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 20:00:30 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 20:00:30 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:00:30 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 20:00:30 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 20:02:16 main.go:36: Starting the app...
+TRACE: 2022/05/03 20:02:26 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 20:04:33 main.go:36: Starting the app...
+TRACE: 2022/05/03 20:04:43 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 20:06:59 main.go:36: Starting the app...
+TRACE: 2022/05/03 20:07:08 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 20:07:14 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 20:07:24 DeadTypes.go:172: City: Toronto, CA - not found in ES 
+TRACE: 2022/05/03 20:08:25 main.go:36: Starting the app...
+TRACE: 2022/05/03 20:08:36 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 20:08:42 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 20:08:52 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 20:08:52 DeadTypes.go:172: City: Foxboro, MA - not found in ES 
+TRACE: 2022/05/03 20:10:04 main.go:36: Starting the app...
+TRACE: 2022/05/03 20:10:14 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 20:12:41 main.go:36: Starting the app...
+TRACE: 2022/05/03 20:12:51 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 20:12:59 main.go:36: Starting the app...
+TRACE: 2022/05/03 20:13:08 DeadTypes.go:172: City: unknown - not found in ES 
+TRACE: 2022/05/03 20:13:12 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 20:13:23 DeadTypes.go:172: City: Toronto, CA - not found in ES 
+TRACE: 2022/05/03 20:13:24 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 20:14:46 main.go:36: Starting the app...
+TRACE: 2022/05/03 20:15:46 main.go:36: Starting the app...
+TRACE: 2022/05/03 20:16:28 main.go:36: Starting the app...
+TRACE: 2022/05/03 20:16:34 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 20:16:35 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:16:36 DeadTypes.go:172: City: Augusta, Maine - not found in ES 
+TRACE: 2022/05/03 20:16:37 DeadTypes.go:172: City: Berkeley, California - not found in ES 
+TRACE: 2022/05/03 20:16:38 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:16:39 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:16:41 DeadTypes.go:172: City: Berkeley, California - not found in ES 
+TRACE: 2022/05/03 20:16:41 DeadTypes.go:172: City: Paris, FR - not found in ES 
+TRACE: 2022/05/03 20:16:42 DeadTypes.go:172: City: Paris, FR - not found in ES 
+TRACE: 2022/05/03 20:16:44 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:16:45 DeadTypes.go:172: City: Berkeley, California - not found in ES 
+TRACE: 2022/05/03 20:18:30 main.go:36: Starting the app...
+TRACE: 2022/05/03 20:18:35 DeadTypes.go:172: City: Augusta, Maine - not found in ES 
+TRACE: 2022/05/03 20:18:36 DeadTypes.go:172: City: Berkeley, California - not found in ES 
+TRACE: 2022/05/03 20:18:37 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 20:18:37 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:18:38 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:18:38 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:18:38 DeadTypes.go:172: City: Berkeley, California - not found in ES 
+TRACE: 2022/05/03 20:18:39 DeadTypes.go:172: City: Paris, FR - not found in ES 
+TRACE: 2022/05/03 20:18:39 DeadTypes.go:172: City: Paris, FR - not found in ES 
+TRACE: 2022/05/03 20:18:42 DeadTypes.go:172: City: Berkeley, California - not found in ES 
+TRACE: 2022/05/03 20:18:43 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:18:43 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:18:44 DeadTypes.go:172: City: Augusta, Maine - not found in ES 
+TRACE: 2022/05/03 20:18:46 DeadTypes.go:172: City: Munich, West Germany - not found in ES 
+TRACE: 2022/05/03 20:18:47 DeadTypes.go:172: City: Toronto, CA - not found in ES 
+TRACE: 2022/05/03 20:18:47 DeadTypes.go:172: City: Munich, West Germany - not found in ES 
+TRACE: 2022/05/03 20:18:47 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 20:18:48 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 20:18:53 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:18:53 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:34:43 main.go:36: Starting the app...
+TRACE: 2022/05/03 20:34:54 DeadTypes.go:172: City: Augusta, Maine - not found in ES 
+TRACE: 2022/05/03 20:34:54 DeadTypes.go:172: City: Berkeley, California - not found in ES 
+TRACE: 2022/05/03 20:34:55 DeadTypes.go:172: City: Tampa, Florida - not found in ES 
+TRACE: 2022/05/03 20:34:55 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:34:56 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:34:56 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:34:57 DeadTypes.go:172: City: Berkeley, California - not found in ES 
+TRACE: 2022/05/03 20:34:57 DeadTypes.go:172: City: Paris, FR - not found in ES 
+TRACE: 2022/05/03 20:34:58 DeadTypes.go:172: City: Paris, FR - not found in ES 
+TRACE: 2022/05/03 20:35:00 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:35:00 DeadTypes.go:172: City: Berkeley, California - not found in ES 
+TRACE: 2022/05/03 20:35:00 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:35:02 DeadTypes.go:172: City: Augusta, Maine - not found in ES 
+TRACE: 2022/05/03 20:35:03 DeadTypes.go:172: City: Munich, West Germany - not found in ES 
+TRACE: 2022/05/03 20:35:04 DeadTypes.go:172: City: Munich, West Germany - not found in ES 
+TRACE: 2022/05/03 20:35:05 DeadTypes.go:172: City: Toronto, CA - not found in ES 
+TRACE: 2022/05/03 20:35:05 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 20:35:06 DeadTypes.go:172: City: De Kalb, IL - not found in ES 
+TRACE: 2022/05/03 20:35:08 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:08 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:09 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:09 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:09 DeadTypes.go:172: City: Worcester, Mass. - not found in ES 
+TRACE: 2022/05/03 20:35:10 DeadTypes.go:172: City: London, EN - not found in ES 
+TRACE: 2022/05/03 20:35:10 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:11 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:11 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:11 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:12 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:12 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:13 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:13 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:14 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:15 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:15 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:16 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:35:17 DeadTypes.go:172: City: London, EN - not found in ES 
+TRACE: 2022/05/03 20:35:17 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:35:18 DeadTypes.go:172: City: London, EN - not found in ES 
+TRACE: 2022/05/03 20:35:18 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:19 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:19 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:20 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:20 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:21 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:21 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:22 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:22 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:23 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:23 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:24 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:35:24 DeadTypes.go:172: City: Edinburgh, Scotland - not found in ES 
+TRACE: 2022/05/03 20:35:25 DeadTypes.go:172: City: Edinburgh, Scotland - not found in ES 
+TRACE: 2022/05/03 20:35:25 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:35:25 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:35:25 DeadTypes.go:172: City: Edinburgh, Scotland - not found in ES 
+TRACE: 2022/05/03 20:35:26 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:35:34 DeadTypes.go:172: City: Unknown, Unknown - not found in ES 
+TRACE: 2022/05/03 20:36:00 DeadTypes.go:172: City: East Rutherford, New Jersey - not found in ES 
+TRACE: 2022/05/03 20:36:01 DeadTypes.go:172: City: Multiple - not found in ES 
+TRACE: 2022/05/03 20:36:04 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:36:05 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:36:06 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:36:07 DeadTypes.go:172: City: Various - not found in ES 
+TRACE: 2022/05/03 20:36:07 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:36:08 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:36:09 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:36:10 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:36:10 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:36:11 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:36:11 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:36:12 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:36:12 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:36:13 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:36:16 DeadTypes.go:172: City: Mill Valley, California - not found in ES 
+TRACE: 2022/05/03 20:36:18 DeadTypes.go:172: City: San Rafael, California - not found in ES 
+TRACE: 2022/05/03 20:36:19 DeadTypes.go:172: City: Mill Valley, California - not found in ES 
+TRACE: 2022/05/03 20:36:20 DeadTypes.go:172: City: Mill Valley, California - not found in ES 
+TRACE: 2022/05/03 20:36:20 DeadTypes.go:172: City: Mill Valley, California - not found in ES 
+TRACE: 2022/05/03 20:36:21 DeadTypes.go:172: City: Studio - not found in ES 
+TRACE: 2022/05/03 20:36:28 DeadTypes.go:172: City: Munich, GE - not found in ES 
+TRACE: 2022/05/03 20:36:29 DeadTypes.go:172: City: London, EN - not found in ES 
+TRACE: 2022/05/03 20:36:29 DeadTypes.go:172: City: London, EN - not found in ES 
+TRACE: 2022/05/03 20:36:30 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:36:46 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:36:46 DeadTypes.go:172: City: Hamilton, Ontario Canada - not found in ES 
+TRACE: 2022/05/03 20:36:50 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:36:50 DeadTypes.go:172: City: Hamilton, Ontario, Canada - not found in ES 
+TRACE: 2022/05/03 20:36:51 DeadTypes.go:172: City: Hamilton, Ontario Canada - not found in ES 
+TRACE: 2022/05/03 20:37:10 DeadTypes.go:172: City: Omaha, Nb - not found in ES 
+TRACE: 2022/05/03 20:37:32 DeadTypes.go:172: City: Hamilton Ontario, CA - not found in ES 
+TRACE: 2022/05/03 20:37:33 DeadTypes.go:172: City: Hamilton Ontario, CA - not found in ES 
+TRACE: 2022/05/03 20:37:33 DeadTypes.go:172: City: Hamilton Ontario, CA - not found in ES 
+TRACE: 2022/05/03 20:37:35 DeadTypes.go:172: City: Champaign-Urbana, IL - not found in ES 
+TRACE: 2022/05/03 20:37:35 DeadTypes.go:172: City: Champaign-Urbana, IL - not found in ES 
+TRACE: 2022/05/03 20:37:41 DeadTypes.go:172: City: Oakland, California - not found in ES 
+TRACE: 2022/05/03 20:37:42 DeadTypes.go:172: City: Unknown, Unknown - not found in ES 
+TRACE: 2022/05/03 20:37:47 DeadTypes.go:172: City: Oakland, California - not found in ES 
+TRACE: 2022/05/03 20:37:54 DeadTypes.go:172: City: Oakland, California - not found in ES 
+TRACE: 2022/05/03 20:37:55 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:38:01 DeadTypes.go:172: City: Unknown, CA - not found in ES 
+TRACE: 2022/05/03 20:38:01 DeadTypes.go:172: City: New York City, NY - not found in ES 
+TRACE: 2022/05/03 20:38:04 DeadTypes.go:172: City: Oakland, California - not found in ES 
+TRACE: 2022/05/03 20:38:13 DeadTypes.go:172: City: Portland, Oregon - not found in ES 
+TRACE: 2022/05/03 20:38:18 DeadTypes.go:172: City: Oakland, California - not found in ES 
+TRACE: 2022/05/03 20:38:19 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:38:20 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:38:20 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/03 20:38:21 DeadTypes.go:172: City: London, England - not found in ES 
+TRACE: 2022/05/10 20:21:15 main.go:36: Starting the app...
